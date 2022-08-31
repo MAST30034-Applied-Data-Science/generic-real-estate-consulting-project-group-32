@@ -5,7 +5,7 @@
 
 property_url                      - where scraped data from
 price                             - price of property
-location                          - location of property
+address                           - address of property
 num_beds                          - number of bedrooms
 num_bath                          - number of bathrooms
 num_car                           - number of parking spaces
