@@ -12,12 +12,16 @@ import geopandas as gpd
 import geoplot.crs as gcrs
 import imageio
 
-def addSA2(df: pd.DataFrame):
+def addSA2(df: pd.DataFrame, use_postcode = False):
     """ Adds SA2 code and geometry of the SA2 value to the dataframe, and converts to GeoDataFrame """
-
-    postcodes = pd.read_csv("../data/raw/australian_postcodes.csv")
-    postcodes = postcodes[["postcode", "lat", "long"]]
-    postcodes = postcodes.drop_duplicates()
+    
+    # If missing longitude and latitude
+    if use_postcode:
+        postcodes = pd.read_csv("../data/raw/australian_postcodes.csv")
+        postcodes.rename(columns={"lat":"latitude", "long":"longitude"})
+        postcodes = postcodes[["postcode", "latitude", "longitude"]]
+        postcodes = postcodes.drop_duplicates()
+        df = df.join(postcodes.set_index("postcode"), on = "postcode", lsuffix = "_l", rsuffix = "_r")
 
     shape = gpd.read_file('../data/raw/ShapeFile/SA2_2021_AUST_GDA2020.shp')
     shape = shape.loc[shape.STE_NAME21 == "Victoria"]
@@ -25,8 +29,8 @@ def addSA2(df: pd.DataFrame):
     shape = shape[["SA2_CODE21", "geometry", "AREASQKM21"]]
     shape = shape.astype({"SA2_CODE21": float})
     
-    df = df.join(postcodes.set_index("postcode"), on = "postcode", lsuffix = "_l", rsuffix = "_r")
-    df["SA2"] = df.apply(lambda x: find_zone(x["long"],x["lat"],shape), axis=1)
+    
+    df["SA2"] = df.apply(lambda x: find_zone(x["longitude"],x["latitude"],shape), axis=1)
     geo_df = gpd.GeoDataFrame(df.join(shape.set_index("SA2_CODE21")["geometry"], on = "SA2"))
     
     return geo_df
