@@ -28,7 +28,7 @@ def download_zone():
     """Download zones lookup data"""
 
     if not os.path.exists(f"{out_dir}/abs_data/zone_data"):
-        os.mkdir(f"{out_dir}/abs_data/zone_data")
+        os.makedirs(f"{out_dir}/abs_data/zone_data")
 
     logging.info("Beginning zone download")
 
