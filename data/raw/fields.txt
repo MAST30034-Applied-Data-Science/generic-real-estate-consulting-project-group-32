@@ -1,0 +1,38 @@
+- JSON is a list of dicts.
+- Each dict has the features listed bellow
+- All entires are strings or empty (null)
+- strings will required pre-processing
+
+property_url                      - where scraped data from
+price                             - price of property
+address                           - address of property
+num_beds                          - number of bedrooms
+num_bath                          - number of bathrooms
+num_car                           - number of parking spaces
+property_type                     - property type (house/apartment/...)
+agent                             - who is selling it
+bond                              - the bond if there is one
+internal_area                     - internal area of property (often null)
+land_area                         - area of land property on (often null)
+domain_says                       - text from domain (often says how may similar properties sold)
+neighbourhood_under_20            - % under 20 in same neighbourhood
+neighbourhood_20_to_39            - % between 20 and 39 in same neighbourhood
+neighbourhood_40_to_59            - % between 40 and 59 in same neighbourhood
+neighbourhood_above_60            - % above 60 in same neighbourhood
+neighbourhood_long_term_residents - % long term residents in same neighbourhood (sometimes not null)
+neighbourhood_owners              - % properties owned in same neighbourhood
+neighbourhood_renter              - % properties rented in same neighbourhood (renters = 100 - owners)
+neighbourhood_family              - % properties owned/rented by families in same neighbourhood
+neighbourhood_single              - % properties owned/rented by single people in same neighbourhood (single = 100 - family)
+performance_median_price          - median price of properties in same suburb with same number of bedrooms
+performance_auction_clearance     - auction clearance of properties in same suburb with same number of bedrooms
+performance_sold_this_year        - number of properties sold this year in same suburb with same number of bedrooms
+performance_avg_days_on_market    - average days on market for properties in same suburb with same number of bedrooms
+demographic_population            - population in same suburb
+demographic_average_age           - average age in same suburb
+demographic_owner                 - % owners of properties in same suburb
+demographic_renter                - % renter of properties in same suburb (renters = 100 - owners)
+demographic_family                - % family of properties in same suburb
+demographic_single                - % single of properties in same suburb (single = 100 - family)
+latitude                          - of property
+longitude                         - of property
