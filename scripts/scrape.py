@@ -247,7 +247,7 @@ for property_url in property_urls:
 print(f"{len(data)} properties scraped")
 
 # save all data scraped with time code
-time_utc = str(datetime.utcnow()).replace(" ", "_")
+time_utc = str(datetime.utcnow()).replace(" ", "_").replace(":", "-").replace(".", "-")
 with open(f"{SAVE_DIR}/scrape_{time_utc}.json", "w") as file:
     dump(data, file)
 
