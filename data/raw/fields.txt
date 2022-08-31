@@ -13,6 +13,7 @@ property_type                     - property type (house/apartment/...)
 agent                             - who is selling it
 bond                              - the bond if there is one
 internal_area                     - internal area of property (often null)
+land_area                         - area of land property on (often null)
 domain_says                       - text from domain (often says how may similar properties sold)
 neighbourhood_under_20            - % under 20 in same neighbourhood
 neighbourhood_20_to_39            - % between 20 and 39 in same neighbourhood
@@ -33,3 +34,5 @@ demographic_owner                 - % owners of properties in same suburb
 demographic_renter                - % renter of properties in same suburb (renters = 100 - owners)
 demographic_family                - % family of properties in same suburb
 demographic_single                - % single of properties in same suburb (single = 100 - family)
+latitude                          - of property
+longitude                         - of property
