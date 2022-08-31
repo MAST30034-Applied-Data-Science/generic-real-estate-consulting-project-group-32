@@ -2,16 +2,16 @@ import re
 from bs4 import BeautifulSoup
 import requests
 from json import dump
+from datetime import datetime
 
 
 BASE_URL = "https://www.domain.com.au"
 
 SAVE_DIR = "../data/raw/"
 
-PAGES_TO_SCRAPE = 10
+PAGES_TO_SCRAPE = 50
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (X11; CrOS x86_64 12871.102.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.141 Safari/537.36"}
-
 property_urls = []
 for page_num in range(PAGES_TO_SCRAPE):
 
@@ -23,15 +23,14 @@ for page_num in range(PAGES_TO_SCRAPE):
     #print(f"Retrieved page {page_num + 1}")
 
     # find all property links on currect page
-    property_pannels = content.find("ul", {"data-testid": "results"})
-    links = property_pannels.findAll("a", href=re.compile(f"{BASE_URL}/*"))
-
-    # add specific links to properties to list
-    for link in links:
-        if "address" in link["class"]:
-            property_urls.append(link["href"])
-
-
+    links = content.find("ul", {"data-testid": "results"})
+    if links:
+        links = links.findAll("a", href=re.compile(f"{BASE_URL}/*"))
+        if links:
+            # add specific links to properties to list
+            for link in links:
+                if "address" in link["class"]:
+                    property_urls.append(link["href"])
 
 data = []
 
@@ -41,7 +40,7 @@ for property_url in property_urls:
 
     price = None
 
-    location = None
+    address = None
 
     num_beds = None
     num_bath = None
@@ -53,6 +52,7 @@ for property_url in property_urls:
 
     bond = None
     internal_area = None
+    land_area = None
 
     domain_says = None
 
@@ -81,11 +81,14 @@ for property_url in property_urls:
     demographic_family = None
     demographic_single = None
 
+    latitude = None
+    longitude = None
+
     content = BeautifulSoup(requests.get(property_url, headers=HEADERS).text, "html.parser")
 
     content_price = content.find("div", {"data-testid": "listing-details__summary-title"})
 
-    content_location = content.find("h1", {"class": "css-164r41r"})
+    content_address = content.find("h1", {"class": "css-164r41r"})
 
     content_features = content.find("div", {"data-testid": "property-features"})
     if content_features:
@@ -118,11 +121,13 @@ for property_url in property_urls:
     else:
         content_values = content_occupancy = content_household = None
 
+    content_coordinates = content.find("a", {"target": "_blank", 'rel': "noopener noreferer"})
+
     if content_price:
         price = content_price.getText()
 
-    if content_location:
-        location = content_location.getText()
+    if content_address:
+        address = content_address.getText()
 
     if len(content_features) >= 1:
         num_beds = content_features[0].getText()
@@ -142,13 +147,17 @@ for property_url in property_urls:
     if content_summary:
         for entry in content_summary:
             bond_found = re.findall(r"([bB]ond \$[0-9,\.]+)",  entry.getText())
-            area_found = re.findall(r"([iI]nternal area .+)",  entry.getText())
+            internal_area_found = re.findall(r"([iI]nternal area .+)",  entry.getText())
+            land_area_found = re.findall(r"([lL]and area .+)",  entry.getText())
 
             if bond_found:
                 bond = bond_found[0]
 
-            if area_found:
-                internal_area = area_found[0]
+            if internal_area_found:
+                internal_area = internal_area_found[0]
+
+            if land_area_found:
+                land_area = land_area_found[0]
 
     if content_domain_says:
         domain_says = content_domain_says.getText()
@@ -194,51 +203,16 @@ for property_url in property_urls:
         demographic_family = content_household.find("span", {"data-testid": "left-value"}).getText()
         demographic_single = content_household.find("span", {"data-testid": "right-value"}).getText()
 
-    #print(f"Price                              {price}")
-
-    #print(f"Location                           {location}")
-
-    #print(f"Num beds                           {num_beds}")
-    #print(f"Num bath                           {num_bath}")
-    #print(f"Num car                            {num_car}")
-
-    #print(f"Property Type                      {property_type}")
-
-    #print(f"Agent                              {agent}")
-
-    #print(f"Bond                               {bond}")
-    #print(f"Internal Area                      {internal_area}")
-
-    #print(f"Domain Says                        {domain_says}")
-
-    #print(f"Neighbourhood Under 20             {neighbourhood_under_20}")
-    #print(f"Neighbourhood 20 - 39              {neighbourhood_20_to_39}")
-    #print(f"Neighbourhood 40 - 59              {neighbourhood_40_to_59}")
-    #print(f"Neighbourhood 60+                  {neighbourhood_above_60}")
-
-    #print(f"Neighbourhood Long Term Residents  {neighbourhood_long_term_residents}")
-
-    #print(f"Neighbourhood Owners               {neighbourhood_owners}")
-    #print(f"Neighbourhood Renter               {neighbourhood_renter}")
-    #print(f"Neighbourhood Family               {neighbourhood_family}")
-    #print(f"Neighbourhood Single               {neighbourhood_single}")
-
-    #print(f"Performance Median Price           {performance_median_price}")
-    #print(f"Performance Auction Clearance      {performance_auction_clearance}")
-    #print(f"Performance Sold This Year         {performance_sold_this_year}")
-    #print(f"Performance Avg Days On Market     {performance_avg_days_on_market}")
-
-    #print(f"Demographic Population             {demographic_population}")
-    #print(f"Demographic Average Age            {demographic_average_age}")
-
-    #print(f"Demographic Owner                  {demographic_owner}")
-    #print(f"Demographic Renter                 {demographic_renter}")
-    #print(f"Demographic Family                 {demographic_family}")
-    #print(f"Demographic Single                 {demographic_single}\n")
+    if content_coordinates:
+        coordinates = re.findall(r"destination=([-\s,\d\.]+)", content_coordinates.attrs["href"])
+        if coordinates:
+            coordinates = coordinates[0].split(",")
+            latitude = coordinates[0]
+            longitude = coordinates[1]
 
     data.append({"url": property_url,
                  "price": price,
-                 "location": location,
+                 "address": address,
                  "num_beds": num_beds,
                  "num_bath": num_bath,
                  "num_car": num_car,
@@ -246,6 +220,7 @@ for property_url in property_urls:
                  "agent": agent,
                  "bond": bond,
                  "internal_area": internal_area,
+                 "land_area": land_area,
                  "domain_says": domain_says,
                  "neighbourhood_under_20": neighbourhood_under_20,
                  "neighbourhood_20_to_39": neighbourhood_20_to_39,
@@ -265,9 +240,15 @@ for property_url in property_urls:
                  "demographic_owner": demographic_owner,
                  "demographic_renter": demographic_renter,
                  "demographic_family": demographic_family,
-                 "demographic_single": demographic_single})
+                 "demographic_single": demographic_single,
+                 "latitude": latitude,
+                 "longitude": longitude})
 
+print(f"{len(data)} properties scraped")
 
-# save all data scraped
-with open(f"{SAVE_DIR}/test_scrape.json", "w") as file:
+# save all data scraped with time code
+time_utc = str(datetime.utcnow()).replace(" ", "_")
+with open(f"{SAVE_DIR}/scrape_{time_utc}.json", "w") as file:
     dump(data, file)
+
+print(f"data saved")
