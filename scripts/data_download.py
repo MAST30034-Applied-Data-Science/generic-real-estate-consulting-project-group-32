@@ -128,11 +128,43 @@ def download_pop_proj():
     return
 
 
+def download_school():
+    """Download school data"""
+
+    logging.info("Beginning school download")
+
+    urlretrieve(
+        "https://www.education.vic.gov.au/Documents/about/research/datavic/dv309_schoollocations2021.csv",
+        f"{out_dir}/school.csv",
+    )
+
+    logging.info("Finished school download")
+
+    return
+
+
+def download_postcode():
+    """Download postcode data"""
+
+    logging.info("Beginning postcode download")
+
+    urlretrieve(
+        "https://raw.githubusercontent.com/matthewproctor/australianpostcodes/master/australian_postcodes.csv",
+        f"{out_dir}/postcode.csv",
+    )
+
+    logging.info("Finished postcode download")
+
+    return
+
+
 def main():
     download_zone()
     download_pop()
     download_median_income()
     download_pop_proj()
+    download_school()
+    download_postcode()
     return
 
 
