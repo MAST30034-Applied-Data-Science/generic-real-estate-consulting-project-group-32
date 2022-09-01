@@ -23,7 +23,7 @@ def addSA2(df: pd.DataFrame, use_postcode = False):
         postcodes = postcodes.drop_duplicates()
         df = df.join(postcodes.set_index("postcode"), on = "postcode", lsuffix = "_l", rsuffix = "_r")
 
-    shape = gpd.read_file('../data/raw/ShapeFile/SA2_2021_AUST_GDA2020.shp')
+    shape = gpd.read_file('../data/raw/abs_data/zone_data/ShapeFile/SA2_2021_AUST_GDA2020.shp')
     shape = shape.loc[shape.STE_NAME21 == "Victoria"]
     shape = shape.loc[shape.geometry != None]
     shape = shape[["SA2_CODE21", "geometry", "AREASQKM21"]]
