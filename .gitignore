@@ -129,7 +129,8 @@ dmypy.json
 .pyre/
 
 # data
-data/curated/
+data/curated/*
+!data/curated/scraped_with_school_tt.csv
 data/raw/
 
 # OSX .DS_Store file
