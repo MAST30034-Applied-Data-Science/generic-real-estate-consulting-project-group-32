@@ -26,7 +26,7 @@ Total week meeting time (not including over text): 1 hour 35 minutes
 **Jobs Assigned:**
 
 * Dylan Beaumont - pre-preocceing scraped data
-* Matthew Rush - finding transport data and distanced to properties
+* Matthew Rush - finding school data and distanced to properties
 * Nguyen Duc Le - finding and linking transport data
 * Jesse Cooper - pre-preocceing scraped data
 * Yanbo Feng - finding historical rent data in victoria
