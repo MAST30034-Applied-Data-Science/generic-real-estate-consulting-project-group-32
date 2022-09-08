@@ -131,7 +131,10 @@ dmypy.json
 # data
 data/curated/*
 !data/curated/scraped_with_school_tt.csv
-data/raw/
+data/raw/*
+!data/raw/historical_rent.xlsx
+!data/raw/PUBLIC_TRANSPORT
+
 
 # OSX .DS_Store file
 .DS_Store

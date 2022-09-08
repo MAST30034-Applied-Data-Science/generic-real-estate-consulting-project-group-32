@@ -4,7 +4,7 @@ from geopy import distance
 
 def proximity(subject_lat, subject_long, compare_lat, compare_long):
     distances = []
-    for i in range(len(compare_lat)):  
+    for i in range(len(compare_lat)):
         distances.append(
             distance.distance(
                 (subject_lat, subject_long), (compare_lat[i], compare_long[i])

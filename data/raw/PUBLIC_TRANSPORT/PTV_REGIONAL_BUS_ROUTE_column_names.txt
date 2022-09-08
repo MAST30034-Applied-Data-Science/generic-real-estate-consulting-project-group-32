@@ -1,0 +1,17 @@
+﻿The column names in a Shape file are limited to 10 characters
+This lists the short column name and the original column name in the database table
+-----------------------------------------------------------------------------------------------------
+
+FIRSTSTNAM = FIRST_STOP_NAME
+OPERATOR = OPERATOR_NAME
+FIRSTSPID = FIRST_STOP_ID
+SHAPE_ID = SHAPE_ID
+ROUTELONGN = ROUTE_LONG_NAME
+NUMOFSTOPS = NUM_OF_STOPS
+ROUTE_ID = ROUTE_ID
+TRIPHDSIGN = TRIP_HEADSIGN
+LASTSPNAME = LAST_STOP_NAME
+ROUTESHTNM = ROUTE_SHORT_NAME
+ROUTE_KM = ROUTE_KM
+LASTSTID = LAST_STOP_ID
+SEANNOCAD = SE_ANNO_CAD_DATA
