@@ -2,7 +2,7 @@ import openrouteservice
 from geopy import distance
 
 
-def proximity(subject_lat, subject_long, compare_lat, compare_long):
+def proximity(subject_lat, subject_long, compare_lat, compare_long, top_only=None):
     distances = []
     for i in range(len(compare_lat)):
         distances.append(
@@ -14,8 +14,10 @@ def proximity(subject_lat, subject_long, compare_lat, compare_long):
     sorted_distances = sorted(distances, reverse=False)
     min_index_1 = distances.index(sorted_distances[0])
     min_index_2 = distances.index(sorted_distances[1])
-
-    return min_index_1, min_index_2
+    if top_only:
+        return min_index_1
+    else:
+        return min_index_1, min_index_2
 
 
 def travel_time(subject_lat, subject_long, compare_lat, compare_long, api_key):
