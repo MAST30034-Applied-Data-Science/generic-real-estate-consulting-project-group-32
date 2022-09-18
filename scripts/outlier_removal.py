@@ -24,4 +24,4 @@ influence = OLSInfluence(results)
 sres = influence.resid_studentized_internal
 
 # mark points above a certain cooks distance.
-df.loc[influence.cooks_distance[0] > 0.002].to_csv(f"../data/curated/outlier_removed_data.csv")
+df.loc[influence.cooks_distance[0] < 0.002].to_csv(f"../data/curated/outlier_removed_data.csv")
