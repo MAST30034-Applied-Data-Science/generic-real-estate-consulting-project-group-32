@@ -131,6 +131,7 @@ dmypy.json
 # data
 data/curated/*
 !data/curated/scraped_with_school_tt.csv
+!data/curated/ptv_to_prop.csv
 data/raw/*
 !data/raw/historical_rent.xlsx
 !data/raw/PUBLIC_TRANSPORT
