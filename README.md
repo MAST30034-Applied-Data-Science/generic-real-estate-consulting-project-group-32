@@ -1,7 +1,17 @@
 # Generic Real Estate Consulting Project
 
 - only datasets not easily reproducible (time sensitive data or time to compute) are included on the git
-- For a current look at the dataset go to `pre_processing.ipynb` in `notebooks`
+
+Run the file in numbered order:
+1. `scripts\1_data_download.py`
+2. `notebook\2_scrape.ipynb`
+3. `notebook\3_api.ipynb`
+4. `notebook\3_pre_processing.ipynb`
+5. `notebook\5_question_1.ipynb`
+6. `notebook\6_question_2.ipynb`
+7. `notebook\7_question_3.ipynb`
+
+Or alternatively run the notebook: `summary.ipynb`
 
 ## Team
 - Dylan Beaumont, 1052845
