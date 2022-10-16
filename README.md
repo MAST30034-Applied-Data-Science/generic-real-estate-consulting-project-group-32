@@ -1,6 +1,11 @@
 # Generic Real Estate Consulting Project
 
-- only datasets not easily reproducible (time sensitive data or time to compute) are included on the git
+## Steps
+#### Only datasets not easily reproducible (time sensitive data or time to compute) are included on the git
+
+Please install packages as per requirements.txt before running the following steps.
+
+Please note that `geoplot` may have issues installing on Python3.9+
 
 Run the file in numbered order:
 1. `scripts\1_data_download.py`
@@ -47,4 +52,3 @@ https://www.domain.com.au/suburb-profile/ {suburb_parameters}
 ### Parks and Shopping Centres
 Courtesy of OpenStreetMap
 https://www.openstreetmap.org/copyright
-
