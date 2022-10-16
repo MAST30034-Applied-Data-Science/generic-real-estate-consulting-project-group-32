@@ -2,9 +2,11 @@ from scipy.stats import percentileofscore
 import numpy as np
 import pandas as pd
 
+# This file contains functions to help run Q3 in the summary notebook
 
 
 def median_rent(df, postcode):
+    """Calculates median rent based on scraped properties"""
     df = df[df["postcode"] == postcode]
     n_sold = df.n_sold.values.tolist()
     median = df.median_rent.values.tolist()
@@ -30,6 +32,7 @@ def score(
     median_rent,
     affordable=False,
 ):
+    """This function scores each suburb"""
 
     if school_duration == 0:
         school_duration_score = 100
@@ -52,7 +55,8 @@ def score(
     if park_distance == 0:
         park_distace_score = 100
     else:
-        park_distace_score = percentileofscore(property_df.park_distance, park_distance)
+        park_distace_score = percentileofscore(
+            property_df.park_distance, park_distance)
     if shop_duration == 0:
         shop_duration_score = 100
     else:

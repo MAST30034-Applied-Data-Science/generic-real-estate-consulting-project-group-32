@@ -25,6 +25,7 @@ HEADERS = {
 
 
 def property_scraper():
+    """Scrape all properties for rent on domain"""
     property_urls = []
     for page_num in range(PAGES_TO_SCRAPE):
 
@@ -109,7 +110,8 @@ def property_scraper():
 
         content_address = content.find("h1", {"class": "css-164r41r"})
 
-        content_features = content.find("div", {"data-testid": "property-features"})
+        content_features = content.find(
+            "div", {"data-testid": "property-features"})
         if content_features:
             content_features = content_features.findAll(
                 "span", {"data-testid": "property-features-text-container"}
@@ -123,7 +125,8 @@ def property_scraper():
             "a", {"data-testid": "listing-details__agent-details-agent-company-name"}
         )
 
-        content_summary = content.find("div", {"data-testid": "strip-content-list"})
+        content_summary = content.find(
+            "div", {"data-testid": "strip-content-list"})
         if content_summary:
             content_summary = content_summary.findAll("li")
 
@@ -149,7 +152,8 @@ def property_scraper():
             "div", {"data-testid": "listing-details__suburb-insights"}
         )
         if content_stats:
-            content_values = content_stats.findAll("div", {"class": "css-35ezg3"})
+            content_values = content_stats.findAll(
+                "div", {"class": "css-35ezg3"})
 
             content_occupancy = content_stats.find(
                 "div", {"data-testid": "suburb-insights__occupancy"}
@@ -187,11 +191,13 @@ def property_scraper():
 
         if content_summary:
             for entry in content_summary:
-                bond_found = re.findall(r"([bB]ond \$[0-9,\.]+)", entry.getText())
+                bond_found = re.findall(
+                    r"([bB]ond \$[0-9,\.]+)", entry.getText())
                 internal_area_found = re.findall(
                     r"([iI]nternal area .+)", entry.getText()
                 )
-                land_area_found = re.findall(r"([lL]and area .+)", entry.getText())
+                land_area_found = re.findall(
+                    r"([lL]and area .+)", entry.getText())
 
                 if bond_found:
                     bond = bond_found[0]
@@ -206,10 +212,14 @@ def property_scraper():
             domain_says = content_domain_says.getText()
 
         if content_age:
-            content_under_20 = content_age[0].find("div", {"data-testid": "bar-value"})
-            content_20_to_39 = content_age[1].find("div", {"data-testid": "bar-value"})
-            content_40_to_59 = content_age[2].find("div", {"data-testid": "bar-value"})
-            content_above_60 = content_age[3].find("div", {"data-testid": "bar-value"})
+            content_under_20 = content_age[0].find(
+                "div", {"data-testid": "bar-value"})
+            content_20_to_39 = content_age[1].find(
+                "div", {"data-testid": "bar-value"})
+            content_40_to_59 = content_age[2].find(
+                "div", {"data-testid": "bar-value"})
+            content_above_60 = content_age[3].find(
+                "div", {"data-testid": "bar-value"})
 
             neighbourhood_under_20 = content_under_20.getText()
             neighbourhood_20_to_39 = content_20_to_39.getText()
@@ -221,16 +231,20 @@ def property_scraper():
 
         if content_type:
             neighbourhood_owners = (
-                content_type[0].find("span", {"data-testid": "left-value"}).getText()
+                content_type[0].find(
+                    "span", {"data-testid": "left-value"}).getText()
             )
             neighbourhood_renter = (
-                content_type[0].find("span", {"data-testid": "right-value"}).getText()
+                content_type[0].find(
+                    "span", {"data-testid": "right-value"}).getText()
             )
             neighbourhood_family = (
-                content_type[1].find("span", {"data-testid": "left-value"}).getText()
+                content_type[1].find(
+                    "span", {"data-testid": "left-value"}).getText()
             )
             neighbourhood_single = (
-                content_type[1].find("span", {"data-testid": "right-value"}).getText()
+                content_type[1].find(
+                    "span", {"data-testid": "right-value"}).getText()
             )
 
         if content_values:
@@ -317,7 +331,8 @@ def property_scraper():
 
     # save all data scraped with time code
     time_utc = (
-        str(datetime.utcnow()).replace(" ", "_").replace(":", "-").replace(".", "-")
+        str(datetime.utcnow()).replace(
+            " ", "_").replace(":", "-").replace(".", "-")
     )
     with open(f"{SAVE_DIR}/scrape_{time_utc}.json", "w") as file:
         dump(data, file)
@@ -375,6 +390,7 @@ def df_setup():
 
 
 def url_finder(row):
+    """Outputs URL for suburb sales scraping"""
     suburb = row["locality"].lower().replace(r" ", "-")
     postcode = row["postcode"]
 
@@ -395,6 +411,7 @@ def interactive_data(soup, index):
 
 
 def yearly_history_parser(regex):
+    """Parses YOY data"""
     try:
         median = regex.group(1)
     except AttributeError as e:
@@ -416,7 +433,8 @@ def yearly_history_parser(regex):
 def interactive_regex(data, rows, index):
     """Parse data from interactive element"""
     try:
-        h_end = re.search(r"high end: \$?([\d.?]*k?m?)", data, re.IGNORECASE).group(1)
+        h_end = re.search(
+            r"high end: \$?([\d.?]*k?m?)", data, re.IGNORECASE).group(1)
         low_end = re.search(
             r"entry level: \$?([\d.?]*k?m?)", data, re.IGNORECASE
         ).group(1)
@@ -478,7 +496,8 @@ def ingester(rows, df, suburb, postcode):
             i.insert(1, postcode)
             # print(i)
 
-            df = df.append(pd.Series(i, index=df.columns[: len(i)]), ignore_index=True)
+            df = df.append(
+                pd.Series(i, index=df.columns[: len(i)]), ignore_index=True)
     return df
 
 
@@ -492,7 +511,8 @@ def history_scraper(driver, url):
         table = soup.find(lambda tag: tag.name == "table")
         n_rows = len(
             table.findAll(
-                lambda tag: tag.name == "tr" and tag.findParent("table") == table
+                lambda tag: tag.name == "tr" and tag.findParent(
+                    "table") == table
             )
         )
     except AttributeError as e:
@@ -521,6 +541,7 @@ def history_scraper(driver, url):
 def main():
     property_scraper()
 
+    # Code at this point onwards are to scrape historical sales data
     df = df_setup()
     driver = driver_setup()
 
