@@ -13,6 +13,13 @@ Run the file in numbered order:
 
 Or alternatively run the notebook: `summary.ipynb`
 
+#### Please note that files 3 and 4 require a significant amount of time and/or API credentials. We would strongly recommend that you SKIP those 2 files.
+#### The data outputted from those 2 files are:
+#### - `data/raw/scraped_proeperties.csv`
+#### - `data/curated/api_data.csv`
+
+#### These files are saved in GitHub for your convenience
+
 ## Team
 - Dylan Beaumont, 1052845
 - Matthew Rush, 1080100
@@ -21,5 +28,23 @@ Or alternatively run the notebook: `summary.ipynb`
 - Yanbo Feng, 1174059
 
 ## Data Reference
+### SA2 Zones, Population Data, Median Income, and Population Projection
+https://api.data.abs.gov.au with various resources and parameters
 
-place links and attributes to data used here
+### School Locations
+https://www.education.vic.gov.au/Documents/about/research/datavic/dv309_schoollocations2021.csv
+
+### PTV Stops Location
+Requested at https://datashare.maps.vic.gov.au.
+Note that data will be emailed to you.
+
+### Listed Properties
+https://www.domain.com.au/rent/ {parameters}
+
+### Suburbs Historical Sales
+https://www.domain.com.au/suburb-profile/ {suburb_parameters}
+
+### Parks and Shopping Centres
+Courtesy of OpenStreetMap
+https://www.openstreetmap.org/copyright
+
