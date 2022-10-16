@@ -38,65 +38,65 @@ def score(
         school_duration_score = 100
     else:
         school_duration_score = percentileofscore(
-            property_df.school_duration, school_duration
+            property_df.school_duration.dropna(), school_duration
         )
     if school_distance == 0:
         school_distance_score = 100
     else:
         school_distance_score = percentileofscore(
-            property_df.school_distance, school_distance
+            property_df.school_distance.dropna(), school_distance
         )
     if park_duration == 0:
         park_duration_score = 100
     else:
         park_duration_score = percentileofscore(
-            property_df.park_duration, park_duration
+            property_df.park_duration.dropna(), park_duration
         )
     if park_distance == 0:
         park_distace_score = 100
     else:
         park_distace_score = percentileofscore(
-            property_df.park_distance, park_distance)
+            property_df.park_distance.dropna(), park_distance)
     if shop_duration == 0:
         shop_duration_score = 100
     else:
         shop_duration_score = percentileofscore(
-            property_df.shop_duration, shop_duration
+            property_df.shop_duration.dropna(), shop_duration
         )
     if shop_distance == 0:
         shop_distance_score = 100
     else:
         shop_distance_score = percentileofscore(
-            property_df.shop_distance, shop_distance
+            property_df.shop_distance.dropna(), shop_distance
         )
 
     if train_duration == 0:
         train_duration_score = 100
     else:
         train_duration_score = percentileofscore(
-            property_df.train_duration, train_duration
+            property_df.train_duration.dropna(), train_duration
         )
     if train_distance == 0:
         train_distance_score = 100
     else:
         train_distance_score = percentileofscore(
-            property_df.train_distance, train_distance
+            property_df.train_distance.dropna(), train_distance
         )
     if stop_duration == 0:
         stop_duration_score = 100
     else:
         stop_duration_score = percentileofscore(
-            property_df.stop_duration, stop_duration
+            property_df.stop_duration.dropna(), stop_duration
         )
     if stop_distance == 0:
         stop_distance_score = 100
     else:
         stop_distance_score = percentileofscore(
-            property_df.stop_distance, stop_distance
+            property_df.stop_distance.dropna(), stop_distance
         )
     if affordable:
         median_rent_score = 4.2 * percentileofscore(
-            property_df.median_rent, median_rent
+            property_df.median_rent.dropna(), median_rent
         )
     else:
         median_rent_score = 0
