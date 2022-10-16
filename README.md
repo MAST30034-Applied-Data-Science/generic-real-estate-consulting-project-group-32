@@ -7,16 +7,7 @@ Please install packages as per requirements.txt before running the following ste
 
 Please note that `geoplot` may have issues installing on Python3.9+
 
-Run the file in numbered order:
-1. `scripts\1_data_download.py`
-2. `notebook\2_scrape.ipynb`
-3. `notebook\3_api.ipynb`
-4. `notebook\3_pre_processing.ipynb`
-5. `notebook\5_question_1.ipynb`
-6. `notebook\6_question_2.ipynb`
-7. `notebook\7_question_3.ipynb`
-
-Or alternatively run the notebook: `summary.ipynb`
+For an overview of the project go to: `notebooks\summary.ipynb`
 
 #### Please note that files 3 and 4 require a significant amount of time and/or API credentials. We would strongly recommend that you SKIP those 2 files.
 #### The data outputted from those 2 files are:
