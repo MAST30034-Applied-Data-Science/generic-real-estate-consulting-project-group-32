@@ -3,13 +3,13 @@
 ## Steps
 #### Only datasets not easily reproducible (time sensitive data or time to compute) are included on the git
 
-Please install packages as per requirements.txt before running the following steps.
+Please install packages as per `requirements.txt` before running the following steps.
 
 Please note that `geoplot` may have issues installing on Python3.9+
 
 For an overview of the project go to: `notebooks\summary.ipynb`
 
-#### Please note that files 3 and 4 require a significant amount of time and/or API credentials. We would strongly recommend that you SKIP those 2 files.
+#### Please note that scraping and api require a significant amount of time and/or API credentials. We would strongly recommend that you SKIP those 2 files.
 #### The data outputted from those 2 files are:
 #### - `data/raw/scraped_proeperties.csv`
 #### - `data/curated/api_data.csv`
