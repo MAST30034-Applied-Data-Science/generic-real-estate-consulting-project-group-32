@@ -3,6 +3,7 @@ from geopy import distance
 
 
 def proximity(subject_lat, subject_long, compare_lat, compare_long, top_only=None):
+    """Calculate geographical distance between a subject and target locations"""
     distances = []
     for i in range(len(compare_lat)):
         distances.append(
@@ -21,8 +22,9 @@ def proximity(subject_lat, subject_long, compare_lat, compare_long, top_only=Non
 
 
 def travel_time(subject_lat, subject_long, compare_lat, compare_long, api_key):
-
-    client = openrouteservice.Client(key=api_key)  # Specify your personal API key
+    """Makes ORS API call to calculate travel time"""
+    client = openrouteservice.Client(
+        key=api_key)  # Specify your personal API key
     routes = client.directions(
         ((subject_lat, subject_long), (compare_lat, compare_long))
     )

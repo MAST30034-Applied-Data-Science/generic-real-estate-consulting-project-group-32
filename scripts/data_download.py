@@ -47,7 +47,7 @@ def download_zone():
 
 
 def download_pop():
-
+    """Download population data"""
     logging.info("Beginning population download")
 
     params = {
