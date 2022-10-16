@@ -12,7 +12,7 @@ import geopandas as gpd
 import geoplot.crs as gcrs
 import imageio
 
-def addSA2(df: pd.DataFrame, use_postcode = False):
+def addSA2(df: pd.DataFrame, use_postcode=False):
     """ Adds SA2 code and geometry of the SA2 value to the dataframe, and 
     converts to GeoDataFrame. Use postcode specifies whether to use the 
     postcode or latitude and longitude.
