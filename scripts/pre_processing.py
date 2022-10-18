@@ -13,7 +13,7 @@ DIR_RAW = "../data/raw/"
 DIR_CUR = "../data/curated/"
 
 
-df_postcode = pd.read_csv(f"{DIR_RAW}postcodes.csv")
+df_postcode = pd.read_csv(f"{DIR_RAW}postcode.csv")
 df_postcode = df_postcode[df_postcode["state"] == "VIC"]
 suburbs = set(map(lambda x: x.lower(), df_postcode["locality"].unique()))
 
