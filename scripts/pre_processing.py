@@ -171,7 +171,7 @@ def find_zone(long, lat, shape_df):
 
 
 sf_sa2 = gpd.read_file(
-    f"{DIR_RAW}abs_data/zone_data/zones/SA2_2021_AUST_GDA2020.shp")
+    f"{DIR_RAW}abs_data/zone_data/SA2_2021_AUST_GDA2020.shp")
 sf_sa2 = sf_sa2[sf_sa2["STE_NAME21"] == "Victoria"]
 sf_sa2 = sf_sa2[sf_sa2["geometry"] != None]
 sf_sa2 = sf_sa2[["SA2_CODE21", "geometry"]]
